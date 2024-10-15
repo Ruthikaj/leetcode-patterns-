@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        if (prices.empty()) return 0;  // Check for empty input
+        
+        int mini = prices[0];  // Initialize with the first price
+        int maxprofit = 0;     // Initialize max profit
+        int n = prices.size(); // Get the size of the prices array
+        
+        for (int i = 1; i < n; i++) {  // Iterate through prices starting from index 1
+            int cost = prices[i] - mini;    // Calculate the cost if sold at the current price
+            maxprofit = max(maxprofit, cost); // Update max profit if the current cost is higher
+            mini = min(mini, prices[i]);      // Update mini to the lowest price encountered so far
+        }
+        
+        return maxprofit;  // Return the maximum profit
+    }
+};

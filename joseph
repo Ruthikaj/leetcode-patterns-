@@ -1,0 +1,57 @@
+class Solution {
+    // Recursive function to solve the Josephus problem
+    private int solve(int n, int k) {
+        // Base case: when only one person is left
+        if (n == 1) {
+            return 0; // Only one person left, index is 0
+        }
+        // Recursive step: calculate position for (n-1) people
+        return (solve(n - 1, k) + k) % n;
+    }
+
+    // Public method to find the winner, converting 0-based index to 1-based index
+    public int findTheWinner(int n, int k) {
+        int val = solve(n, k) + 1; // Adjust 0-based result to 1-based result
+        return val; // Return the winner's position
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+
+        // Dry run for n = 4, k = 2
+        // Circle: [1, 2, 3, 4] -> Eliminate every 2nd person
+        System.out.println(solution.findTheWinner(4, 2)); // Expected output: 1
+    }
+}
+
+/*
+Dry Run Example for n = 4, k = 2:
+
+Step-by-step explanation in tabular format:
+
+| Recursive Call       | n   | k   | Calculation                       | Result Returned |
+|----------------------|-----|-----|-----------------------------------|-----------------|
+| solve(1, 2)          | 1   | 2   | Base case: return 0               | 0               |
+| solve(2, 2)          | 2   | 2   | (solve(1, 2) + 2) % 2 = (0 + 2) % 2 = 0 | 0               |
+| solve(3, 2)          | 3   | 2   | (solve(2, 2) + 2) % 3 = (0 + 2) % 3 = 2 | 2               |
+| solve(4, 2)          | 4   | 2   | (solve(3, 2) + 2) % 4 = (2 + 2) % 4 = 0 | 0               |
+
+Backtracking Process:
+1. Base case (n = 1): Index is 0.
+2. n = 2: The next person to survive is calculated as (0 + 2) % 2 = 0.
+3. n = 3: The next person to survive is calculated as (0 + 2) % 3 = 2.
+4. n = 4: The final survivor is calculated as (2 + 2) % 4 = 0.
+
+Converting the result to 1-based index:
+- findTheWinner(4, 2) = solve(4, 2) + 1 = 0 + 1 = 1
+
+Circle Elimination Process:
+| Step | Circle       | Eliminated | Remaining Circle |
+|------|--------------|------------|------------------|
+| 1    | [1, 2, 3, 4] | 2          | [1, 3, 4]        |
+| 2    | [1, 3, 4]    | 4          | [1, 3]           |
+| 3    | [1, 3]       | 3          | [1]              |
+| 4    | [1]          | -          | [1]              |
+
+Winner: 1
+*/

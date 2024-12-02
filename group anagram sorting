@@ -1,0 +1,94 @@
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+          
+       // Step 1: Create an unordered_map to group anagrams
+       // Key: Sorted version of the string
+       // Value: Vector of strings that are anagrams
+       unordered_map<string, vector<string>> mymap;
+
+       int n = strs.size(); // Get the number of strings
+       string temp; // Temporary variable to store the original string
+
+       // Step 2: Iterate over all strings
+       for(int i = 0; i < n; i++) {
+           temp = strs[i]; // Store the original string
+           sort(strs[i].begin(), strs[i].end()); // Sort the string to use as the key
+           mymap[strs[i]].push_back(temp); // Group the original string under the sorted key
+       }
+
+       // Dry-run example input: ["eat", "tea", "tan", "ate", "nat", "bat"]
+
+       // Step 3: Create a container for the result
+       vector<vector<string>> vv;
+
+       // Step 4: Extract the groups from the map
+       for(auto mp : mymap) {
+           vv.push_back(mp.second); // Add each group of anagrams to the result
+       }
+
+       return vv; // Return the grouped anagrams
+    }
+};
+_____________________________________________________________________________________________
+Dry-Run Example
+
+Given the input:
+
+strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
+
+Iteration Over Strings:
+
+    First String: "eat"
+        Original string: "eat", Sorted string (key): "aet".
+        mymap["aet"] = ["eat"].
+
+    Second String: "tea"
+        Original string: "tea", Sorted string (key): "aet".
+        mymap["aet"] = ["eat", "tea"].
+
+    Third String: "tan"
+        Original string: "tan", Sorted string (key): "ant".
+        mymap["ant"] = ["tan"].
+
+    Fourth String: "ate"
+        Original string: "ate", Sorted string (key): "aet".
+        mymap["aet"] = ["eat", "tea", "ate"].
+
+    Fifth String: "nat"
+        Original string: "nat", Sorted string (key): "ant".
+        mymap["ant"] = ["tan", "nat"].
+
+    Sixth String: "bat"
+        Original string: "bat", Sorted string (key): "abt".
+        mymap["abt"] = ["bat"].
+
+mymap State After Iteration:
+
+{
+    "aet": ["eat", "tea", "ate"],
+    "ant": ["tan", "nat"],
+    "abt": ["bat"]
+}
+
+Extracting Groups:
+
+    Loop over mymap and push each vector<string> into vv.
+
+Result:
+
+vv = [
+    ["eat", "tea", "ate"],
+    ["tan", "nat"],
+    ["bat"]
+];
+
+Final Output:
+
+The result is:
+
+[
+    ["eat", "tea", "ate"],
+    ["tan", "nat"],
+    ["bat"]
+]

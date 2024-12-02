@@ -1,0 +1,61 @@
+import java.util.*;    
+public class CombinationExample {   
+    // Method to calculate factorial of a number
+    static int fact(int number) {   
+        int f = 1; // Initialize factorial result
+        int j = 1; // Start counter from 1
+        while(j <= number) {   
+            f = f * j;  // Multiply current result with counter
+            j++;        // Increment counter
+        }   
+        return f;  // Return the calculated factorial
+    }   
+    public static void main(String args[]) {   
+        // Create a list of numbers
+        List<Integer> numbers = new ArrayList<Integer>();   
+        numbers.add(9);   
+        numbers.add(12);   
+        numbers.add(19);   
+        numbers.add(61);   
+        numbers.add(19);   
+
+        // Size of the list
+        int n = numbers.size();  // n = 5
+        int r = 2;               // r = 2
+        int result;   
+        
+        /*
+        Dry Run:
+        Step 1: Calculate n! = fact(5)
+            - f = 1, j = 1
+            - j = 1 → f = 1 * 1 = 1
+            - j = 2 → f = 1 * 2 = 2
+            - j = 3 → f = 2 * 3 = 6
+            - j = 4 → f = 6 * 4 = 24
+            - j = 5 → f = 24 * 5 = 120
+        Result: n! = 120
+
+        Step 2: Calculate r! = fact(2)
+            - f = 1, j = 1
+            - j = 1 → f = 1 * 1 = 1
+            - j = 2 → f = 1 * 2 = 2
+        Result: r! = 2
+
+        Step 3: Calculate (n-r)! = fact(5-2) = fact(3)
+            - f = 1, j = 1
+            - j = 1 → f = 1 * 1 = 1
+            - j = 2 → f = 1 * 2 = 2
+            - j = 3 → f = 2 * 3 = 6
+        Result: (n-r)! = 6
+
+        Step 4: Compute nCr = n! / (r! * (n-r)!)
+            nCr = 120 / (2 * 6)
+            nCr = 120 / 12
+            nCr = 10
+        */
+
+        // Combination formula: nCr = n! / (r! * (n-r)!)
+        result = fact(n) / (fact(r) * fact(n-r)); // result = 10
+        System.out.println("The combination value for the numbers list is: " + result);   
+    }   
+}   
